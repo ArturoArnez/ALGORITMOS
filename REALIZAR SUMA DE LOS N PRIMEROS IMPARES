@@ -1,0 +1,23 @@
+// sumaimpares.cpp : main project file.
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+
+void main()
+{ int suma,N,I;
+suma=0;
+
+cout<<"INGRESE EL NUMERO: ";
+
+cin>>N;
+
+for(I=0;I<N;I++)
+suma=suma+(2*I+1);
+
+cout<<"EL RESULTADO ES: "<<suma;
+
+getch();
+}
