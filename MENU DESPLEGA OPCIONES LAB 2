@@ -1,0 +1,63 @@
+// MENU DESPLEGA OPCIONES.cpp : main project file.
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "math.h"
+#include <stdlib.h>
+
+using namespace std;
+
+int main()
+{ int N,suma,opcion,I;
+
+system("Color 1A");
+
+do 
+{
+	cout<<"INGRESE VALOR DE N: ";
+  cin>>N;
+
+
+  cout<<"\n\nMENU DESPLEGABLE\n";
+
+  cout<<"1.-SUMA DE PARES HASTA N\n\n";
+  cout<<"2.-SUMA DE LOS PRIMEROS N IMPARES\n\n";
+  cout<<"3.-SUMA DE LOS PRIMEROS N PARES CON WHILE\n\n";
+  cout<<"0.-SALIR\n\n";
+  cin>>opcion;
+
+  switch(opcion){
+	case 1: 
+		suma=0;
+		for(I=1;I<=N;I=I+2)
+            suma=suma+I;
+        cout<<"EL RESULTADO ES: \n\n"<<suma;
+		break;
+
+	case 2:
+		   suma=0;
+           for(I=0;I<N;I++)
+               suma=suma+(2*I+1);
+          cout<<"EL RESULTADO ES: "<<suma;
+		  break;
+
+	case 3:suma=0;
+          while(N>0)
+		  for(I=1;I<=N;I=I+2)
+		       suma=suma+I;
+		  cout<<"EL RESULTADO ES: "<<suma;
+		  cin>>N;
+          break;
+
+	case 0: 
+		  break;
+
+   default: cout<<"VALOR NO PERMITIDO"; 
+		  break; 
+		  }}
+while(N!= 0);
+getch();
+return(0);
+}
+
