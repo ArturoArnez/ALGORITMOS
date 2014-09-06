@@ -1,0 +1,47 @@
+// ejercicio2 Practico 1
+//Arturo Arnez 
+//6-9-2014
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+int sinrepetidos(int x);
+
+void main()
+{
+    int a,b;
+    cout<<"Ingresar a: ";
+    cin>>a;
+    cout<<"El numero sin repetidos es: "<<sinrepetidos(a)<<"\n";
+    getch();
+}
+
+int sinrepetidos(int x)
+{
+    int tempo,aux,d1,d2,c,sr=0,p=0;
+    aux=x;
+    while (x!=0)
+    {
+        d1=x%10;
+        x=x/10;
+        tempo=aux;
+        c=0;
+        while (tempo!=0)
+        { d2=tempo%10;
+          if (d1==d2)
+              c++;
+          tempo=tempo/10;
+        }
+        if (c==1)
+        {
+            sr=sr+d1*pow(10.0,p);
+            p++;
+        }
+        
+    }
+    return sr;
+}
