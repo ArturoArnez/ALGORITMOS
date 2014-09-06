@@ -1,0 +1,45 @@
+// practico1.cpp : main project file.
+//NOMBRE: Arturo Arnez Lopez
+//FECHA: 6-9-2014
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+int unir(int x, int y);
+void main()
+{   
+	int A,B,UNION;
+	cout<<"INGRESE EL NUMERO 1  ";
+	cin>>A;
+    cout<<"INGRESE EL NUMERO 2  ";
+    cin>>B;
+UNION=unir(A,B);
+cout<<"EL VALOR CONCATENADO ES: "<<UNION<<"\n";
+getch();
+}
+    
+
+int unir(int x, int y)
+
+{  int mayor,menor,aux,c,con;
+if (x>y)
+{ mayor=x;
+  menor=y;
+}
+else
+{
+	menor=x;
+	mayor=y;
+
+}
+aux=mayor;
+while(aux!=0)
+{ aux=aux/10;
+  c++;
+
+}
+con=menor*pow(10.0,c)+mayor;
+return (con);
+}
