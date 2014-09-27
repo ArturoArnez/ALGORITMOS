@@ -1,0 +1,70 @@
+// ejercicio1.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+#define N 100
+
+using namespace std;
+
+struct vector {
+	int vec[N];
+
+};
+void cargar(int n,vector v[N]);
+void invertir (int n,vector v[N]);
+void mostrar (int n,vector v[N]);
+
+
+
+void main()
+{ int n;
+	vector v[N];
+	cout<<"INGRESA EL NUMERO DE ELEMENTOS";
+	cin>>n;
+    cargar(n,v);
+	invertir(n,v);
+	mostrar(n,v);
+	getch();
+
+}
+
+void cargar (int n,vector v[N])
+{ for(int i=0;i<n;i++)
+      for(int j=0;j<n;j++)
+	  {
+         cout<<"INGRESAR V("<<i<<"].["<<j<<"]=";
+         cin>>v[i].vec[j];
+	  }
+
+}
+
+
+void mostrar(int n,vector v[N])
+{ for(int i=0;i<n;i++)
+
+      for(int j=0;j<n;j++)
+	  {
+         cout<<"INGRESAR V("<<i<<"].["<<j<<"]=";
+         cout<<v[i].vec[j]<<"\t";
+	  }
+
+	  cout<<"\n";
+
+}
+
+
+void invertir (int n,vector v[N])
+{  int aux;
+   for(int i=0;i<n;i++)
+      for(int j=0;j<n;j++)
+	  {
+        
+		  aux=v[n-1-i].vec[n-1-j];
+		  v[n-1-i].vec[n-1-j]=v[i].vec[j];
+	      v[i].vec[j]=aux;
+	  }
+
+}
