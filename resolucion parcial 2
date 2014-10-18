@@ -1,0 +1,94 @@
+// parcial 2.cpp : Defines the entry point for the console application.
+//ARTURO ARNEZ LOPEZ
+//FECHA: 18-10-2014
+
+#include "stdafx.h"
+#include "math.h"
+#include "conio.h"
+#include <iostream>
+
+
+using namespace std;
+
+void primo(int N);
+void orden(int v[],int N);
+void ordenarprimo(vector mat[][],int n,int m);
+
+struct vect
+
+{ int tamaño;
+  int vec[100];
+}
+
+
+int main(){
+
+
+
+
+{ void orden(int v[],int N)
+
+{
+	for(int i=0;i<=N;i++)
+      for(int j=0;j<=N;j++)
+	    if(vec[j]<vec[j+1]  
+
+	   { 
+	    vec[j+1]=aux;
+	    vec[j+1]=vec[j];
+	    vec[j]=aux;
+       }
+
+    }
+}
+
+
+
+bool primo(int N) //porque mary dijo
+{ 
+	bool primo=true;
+
+   for (int i=2;i<N;i++)
+
+   { if(N%1==0)
+
+
+   { primo=false;
+   }
+
+   } return primo;
+}
+
+
+void ordenarprimo(vector mat[][],int n,int m)
+{ 
+	int Vp[],tamaño;
+
+
+	for (int i=0;i<N;i++)
+
+	{
+		for (int j=0;j<N;J++)
+	 
+		{ tamaño=0;
+
+		for (int k;k<mat[i][j].tamaño;k++)
+
+			if(primo(mat[i][j].vec[k]==true))
+			{ Vp[tamaño]=mat[i][j].vec[k];
+		      tamaño++;
+
+		    }
+		}
+		ordenar(Vp,tamaño);
+		for (int k=mat[i][j].tam-1;k<=0;k++)
+		{ if (primo(mat[i][j].vec[k]=Vp[tamaño])==true)
+
+		  tamaño--;
+		matriz[i][j].vec[k]=Vp[tamaño];
+
+		}
+	}
+}
+}
+}
