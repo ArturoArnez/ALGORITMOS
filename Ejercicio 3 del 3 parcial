@@ -1,0 +1,147 @@
+
+#include "stdafx.h"
+#include <conio.h>
+#include <iostream>
+#include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
+using namespace std;
+
+
+
+struct Vendedor
+{
+	int idVend;
+	char nombre[30];
+	char telefono[15];
+	char email[30];
+};
+ 
+struct Venta
+{
+	int idVenta;
+	char fecha[10];
+	int cantidad;
+	int precioUnitario;
+	int idVehiculo;
+	int idBomba;
+};
+ 
+struct Bomba
+{
+	int idBomba;
+	int idProducto;
+	int idVend;
+};
+ 
+ 
+bool VerificarPeriodo(char fechaI[], char fechaF[], char fecha[])
+{
+	int diaI=(fechaI[0]*10)+fechaI[1], mesI=(fechaI[3]*10)+fechaI[4], añoI=(fechaI[6]*1000)+(fechaI[7]*100)+(fechaI[8]*10)+fechaI[9],
+		diaF=(fechaF[0]*10)+fechaF[1], mesF=(fechaF[3]*10)+fechaF[4], añoF=(fechaF[6]*1000)+(fechaF[7]*100)+(fechaF[8]*10)+fechaF[9],
+		dia=(fecha[0]*10)+fecha[1], mes=(fecha[3]*10)+fecha[4], año=(fecha[6]*1000)+(fecha[7]*100)+(fecha[8]*10)+fecha[9];
+	if(año==añoI)
+	{
+		if(mes==mesI)
+			if(dia<diaI)
+				return false;
+	}
+	else if(año==añoF)
+	{
+		if(mes==mesF)
+			if(dia>diaF)
+				return false;
+	}else if(año<añoI||año>añoF)
+		return false;
+	return true;
+}
+ 
+int UltimoIdBomba()
+{
+	FILE *ptr;
+	Bomba reg;
+	ptr=fopen("BOMBA.dat","rb");
+	if(ptr!=NULL)
+	{
+		fseek(ptr,-sizeof(Bomba),SEEK_END);
+		fread(&reg, sizeof(Bomba), 1, ptr);
+		fclose(ptr);
+		return reg.idBomba;
+	}
+}
+ 
+void RecuperarIdBombaVentas(char fechaI[], char fechaF[], int CantidadPorIdbomba[][2])
+{
+	FILE *ptr;
+	Venta reg;
+	ptr=fopen("VENTA.dat","rb");
+	if(ptr!=NULL)
+	{
+		for(int i=400;i<=UltimoIdBomba();i++)
+		{
+			fread(&reg,sizeof(Venta),1,ptr);
+			while(!feof(ptr))
+			{
+				if(VerificarPeriodo(fechaI,fechaF,reg.fecha)&&reg.idBomba==i)
+					CantidadPorIdbomba[i-400][0]=i;
+					CantidadPorIdbomba[i-400][1]+=reg.cantidad;
+				fread(&reg, sizeof(Venta), 1, ptr);
+			}
+		}
+		fclose(ptr);
+	}
+}
+ 
+int IdVendedor(int idBomba)
+{
+	FILE *ptr;
+	Bomba reg;
+	int idVend;
+	ptr=fopen("BOMBA.dat","rb");
+	if(ptr!=NULL)
+	{
+		fread(&reg, sizeof(Bomba), 1, ptr);
+		if(reg.idBomba==idBomba)
+		idVend=reg.idVend;
+		fclose(ptr);
+		return idVend;
+	}
+}
+ 
+void NombreVendedor(int idVend, char nombreVendedor[])
+{
+	FILE *ptr;
+	Vendedor reg;
+	ptr=fopen("VENDEDOR.dat", "rb");
+	if(ptr!=NULL)
+	{
+		fread(&reg, sizeof(Bomba), 1, ptr);
+		if(reg.idVend==idVend)
+			nombreVendedor=reg.nombre;
+		fclose(ptr);
+	}
+}
+ 
+void ImprimierReporteCantidadPorVendedor(char fechaI[],char fechaF[],int CantidadPorIdbomba[][2])
+{
+	char nombre[30];
+	int cantidadTotal=0;
+	system("cls");
+	for(int i=0;i<=UltimoIdBomba()-400;i++)
+	{
+		NombreVendedor(CantidadPorIdbomba[i][0],nombre);
+		cout<<
+			"\nPeriodo: del "<<fechaI<<" al "<<fechaF<<
+			"\n----------------------------------------------------------"<<
+			"\nidVend\t\tNombre Vendedor\t\t\tTotal Monto"<<
+			endl<<
+		        IdVendedor(CantidadPorIdbomba[i][0])<<"\t\t\t"<<nombre<<"\t\t\t"<<CantidadPorIdbomba[i][1]<<
+		        "n----------------------------------------------------------"<<endl;
+		cantidadTotal+=CantidadPorIdbomba[i][1];
+	}
+	cout<<
+		"\n\t\t\t\tTotal---------->>>>>>\t"<<
+		"n----------------------------------------------------------"
+		"\n\nPresione Cualquier Tecla Para Regresar a Menu Principal..."<<endl;
+	_getch();
+}
